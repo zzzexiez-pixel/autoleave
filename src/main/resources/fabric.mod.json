@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "autoleave",
+  "version": "${version}",
+  "name": "AutoLeave",
+  "description": "Automatically disconnects from server when health is too low.",
+  "authors": ["Codex"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "com.example.autoleave.AutoLeaveMod"
+    ],
+    "client": [
+      "com.example.autoleave.AutoLeaveClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "fabric": "*",
+    "minecraft": "1.21.1"
+  }
+}
