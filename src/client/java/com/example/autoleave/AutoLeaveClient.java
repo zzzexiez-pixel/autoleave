@@ -57,6 +57,7 @@ public class AutoLeaveClient implements ClientModInitializer {
     private static KeyBinding createOpenMenuKeyBinding() {
         final String translationKey = "key.autoleave.open_menu";
         final String category = "category.autoleave.main";
+        final int keyCode = GLFW.GLFW_KEY_P;
 
         try {
             Constructor<KeyBinding> ctorWithType = KeyBinding.class.getConstructor(
@@ -64,7 +65,7 @@ public class AutoLeaveClient implements ClientModInitializer {
                     InputUtil.Type.class,
                     int.class,
                     String.class);
-            return ctorWithType.newInstance(translationKey, InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_P, category);
+            return ctorWithType.newInstance(translationKey, InputUtil.Type.KEYSYM, keyCode, category);
         } catch (NoSuchMethodException ignored) {
             // Continue with newer/older constructor shapes for cross-version compatibility.
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
@@ -72,8 +73,23 @@ public class AutoLeaveClient implements ClientModInitializer {
         }
 
         try {
+            Constructor<KeyBinding> ctorWithKey = KeyBinding.class.getConstructor(
+                    String.class,
+                    InputUtil.Key.class,
+                    String.class);
+            return ctorWithKey.newInstance(
+                    translationKey,
+                    InputUtil.Type.KEYSYM.createFromCode(keyCode),
+                    category);
+        } catch (NoSuchMethodException ignored) {
+            // Continue with older constructor shape for compatibility with very old versions.
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException("Failed to create key binding using Key-based constructor", e);
+        }
+
+        try {
             Constructor<KeyBinding> ctorLegacy = KeyBinding.class.getConstructor(String.class, int.class, String.class);
-            return ctorLegacy.newInstance(translationKey, GLFW.GLFW_KEY_P, category);
+            return ctorLegacy.newInstance(translationKey, keyCode, category);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("Unsupported Minecraft key binding constructor signature", e);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
