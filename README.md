@@ -11,3 +11,10 @@
 
 ## Конфиг
 Конфигурация хранится в `config/autoleave.json`.
+
+## Сборка
+Используйте **Gradle 8.x** (рекомендуется 8.14.3):
+
+- Windows/Linux/macOS: `gradle build`
+
+Важно: `fabric-loom` в проекте несовместим с Gradle 9.x.
