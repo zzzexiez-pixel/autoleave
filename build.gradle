@@ -9,6 +9,12 @@ buildscript {
     }
 }
 
+def minGradle = GradleVersion.version('8.0')
+def maxSupportedGradleExclusive = GradleVersion.version('9.0')
+if (GradleVersion.current() < minGradle || GradleVersion.current() >= maxSupportedGradleExclusive) {
+    throw new GradleException("This project requires Gradle 8.x (recommended: 8.14.3). Current: ${GradleVersion.current()}")
+}
+
 apply plugin: 'fabric-loom'
 apply plugin: 'maven-publish'
 
