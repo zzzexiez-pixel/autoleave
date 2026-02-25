@@ -1,12 +1,6 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabricmc.net/' }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath "net.fabricmc:fabric-loom:${project.loom_version}"
-    }
+plugins {
+    id 'fabric-loom' version "${loom_version}"
+    id 'maven-publish'
 }
 
 def minGradle = GradleVersion.version('9.3.1')
@@ -14,9 +8,6 @@ def maxSupportedGradleExclusive = GradleVersion.version('10.0')
 if (GradleVersion.current() < minGradle || GradleVersion.current() >= maxSupportedGradleExclusive) {
     throw new GradleException("This project requires Gradle 9.3.1+ (9.x only, recommended: 9.3.1). Current: ${GradleVersion.current()}")
 }
-
-apply plugin: 'fabric-loom'
-apply plugin: 'maven-publish'
 
 version = project.mod_version
 group = project.maven_group
@@ -27,7 +18,7 @@ base {
 
 repositories {
     mavenCentral()
-    maven { url 'https://maven.fabricmc.net/' }
+    maven { url = 'https://maven.fabricmc.net/' }
 }
 
 dependencies {
@@ -53,5 +44,5 @@ java {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    options.release = 21
 }
