@@ -9,10 +9,10 @@ buildscript {
     }
 }
 
-def minGradle = GradleVersion.version('8.0')
-def maxSupportedGradleExclusive = GradleVersion.version('9.0')
+def minGradle = GradleVersion.version('9.3.1')
+def maxSupportedGradleExclusive = GradleVersion.version('10.0')
 if (GradleVersion.current() < minGradle || GradleVersion.current() >= maxSupportedGradleExclusive) {
-    throw new GradleException("This project requires Gradle 8.x (recommended: 8.14.3). Current: ${GradleVersion.current()}")
+    throw new GradleException("This project requires Gradle 9.3.1+ (9.x only, recommended: 9.3.1). Current: ${GradleVersion.current()}")
 }
 
 apply plugin: 'fabric-loom'
